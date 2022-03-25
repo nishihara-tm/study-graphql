@@ -1,19 +1,18 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
 * Ruby version
+Ruby3.1.1
 
 * System dependencies
 
 * Configuration
 
 * Database creation
+docker-compose exec api rails db:create
+docker-compose exec api rails ridgepole:apply
 
 * Database initialization
+docker-compose exec api rails db:seed
 
 * How to run the test suite
 
