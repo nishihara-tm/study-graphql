@@ -1,1 +1,2 @@
-require 'users.schema'
+require 'schemas/users.schema'
+require 'schemas/posts.schema'

@@ -8,3 +8,6 @@
 
 User.create(name: 'Matz')
 User.create(name: 'DHH')
+
+Post.create(user_id: User.first.id, title: "hello", content: "これは世界を揺るがすような大きな問題です")
+Post.create(user_id: User.first.id, title: "hello", content: "これは世界を揺るがすような大きな問題です")

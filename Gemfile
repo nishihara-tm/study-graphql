@@ -13,6 +13,11 @@ gem "mysql2", "~> 0.5"
 gem "puma", "~> 5.0"
 
 gem 'ridgepole'
+gem 'graphql'
+gem "graphiql-rails"
+gem 'graphql-batch'
+
+gem 'rails-i18n'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
