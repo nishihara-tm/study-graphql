@@ -19,6 +19,9 @@ gem 'graphql-batch'
 
 gem 'rails-i18n'
 
+gem 'devise'
+gem 'devise_token_auth', '>= 1.2.0', git: "https://github.com/lynndylanhurley/devise_token_auth"
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
