@@ -16,25 +16,23 @@ variables:
   DOCKER_DRIVER: overlay2
 
 before_script:
-  # - apk add --update-cache --no-cache docker-compose git bash
-  - apk add --update-cache --no-cache bash git
+  - apk add --update-cache --no-cache docker-compose git bash curl jq
+  # - apk add --update-cache --no-cache bash git curl jq
 
 build:
   script:
-    # - docker-compose up -d --build db
-    # - docker-compose up -d api
-    # - docker-compose exec -T api bundle install
-    # - docker-compose exec -T api rails db:create
-    # - git fetch origin feature/test_gitlab #ここは${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}に置き換える
-    # - git checkout feature/test_gitlab
-    # - docker-compose exec -T api rails ridgepole:apply
-    # - git fetch origin feature/test_gitlab_2 #ここは${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}に置き換える
-    # - git stash
-    # - git checkout feature/test_gitlab_2
-    # - docker-compose exec -T api ridgepole --config config/database.yml --file db/Schemafile --apply --dry-run #ここは環境に合わせて変更する
-    # - result=$(docker-compose exec -T api ridgepole --config config/database.yml --file db/Schemafile --apply --dry-run) #ここは環境に合わせて変更する
-    # - echo "$result"
-    - test_var="hello"
-    - ls -a
+    - docker-compose up -d --build db
+    - docker-compose up -d api
+    - docker-compose exec -T api bundle install
+    - docker-compose exec -T api rails db:create
+    - git fetch origin feature/test_gitlab #ここは${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}に置き換える
+    - git checkout feature/test_gitlab
+    - docker-compose exec -T api rails ridgepole:apply
+    - git fetch origin feature/test_gitlab_2 #ここは${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}に置き換える
+    - git stash
+    - git checkout feature/test_gitlab_2
+    - docker-compose exec -T api ridgepole --config config/database.yml --file db/Schemafile --apply --dry-run #ここは環境に合わせて変更する
+    - result=$(docker-compose exec -T api ridgepole --config config/database.yml --file db/Schemafile --apply --dry-run) #ここは環境に合わせて変更する
+    - echo "$result"
     - chmod +x ./add_comment.sh
-    - ./add_comment.sh $test_var
+    - ./add_comment.sh $result
