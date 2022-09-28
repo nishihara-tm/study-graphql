@@ -13,14 +13,15 @@ services:
 variables:
   DOCKER_TLS_CERTDIR: ""
   DOCKER_HOST: tcp://docker:2375/
+  DOCKER_DRIVER: overlay2
 
 before_script:
-  - docker info
   - apk add --update-cache --no-cache docker-compose git
-  - docker-compose --version
+  # - apk add --update-cache --no-cache git
 
 build:
   script:
+    - docker-compose up -d --build db
     - docker-compose up -d api
     - docker-compose exec -T api bundle install
     - docker-compose exec -T api rails db:create
