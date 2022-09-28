@@ -3,7 +3,8 @@
 create_table "golf_users", force: :cascade do |t|
   t.string "name"
   t.string "email"
-  t.string "taro"
+  t.string "jiro"
   t.boolean "is_sent"
+  t.string "hanako"
   t.timestamps
 end
