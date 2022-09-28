@@ -1,0 +1,30 @@
+#image: tmaier/docker-compose:latest
+image: docker:20.10.14
+services:
+  - name: docker:dind
+    alias: docker
+
+# variables:
+#   DOCKERIZE_VERSION: v0.6.1
+#   DOCKER_BUILDKIT: 1
+#   COMPOSE_DOCKER_CLI_BUILD: 1
+#   DOCKER_DRIVER: overlay2
+
+variables:
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_HOST: tcp://docker:2375/
+
+before_script:
+  - docker info
+  - apk add --update-cache --no-cache docker-compose git
+  - docker-compose --version
+
+build:
+  script:
+    - docker-compose up -d api
+    - docker-compose exec -T api bundle install
+    - docker-compose exec -T api rails db:create
+    - docker-compose exec -T api rails ridgepole:apply
+    - git fetch origin main #ここは${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}に置き換える
+    - git checkout main
+    - docker-compose exec -T api ridgepole --diff config/database.yml db/Schemafile --reverse #ここは環境に合わせて変更する
