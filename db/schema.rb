@@ -20,15 +20,6 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "golfusers", charset: "utf8mb4", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "hash"
-    t.boolean "is_sent"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "posts", charset: "utf8mb4", force: :cascade do |t|
     t.string "title"
     t.text "content"
