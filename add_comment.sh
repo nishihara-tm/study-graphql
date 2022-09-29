@@ -1,7 +1,8 @@
 #!/bin/bash
 CREATED_AT=$(curl --header "PRIVATE-TOKEN: glpat-uuCA22UnzMVNRxr65GRy" "https://gitlab.com/api/v4/projects/39305723/merge_requests/20/notes" | jq -r '.[-1].created_at')
 ID=$(curl --header "PRIVATE-TOKEN: glpat-uuCA22UnzMVNRxr65GRy" "https://gitlab.com/api/v4/projects/39305723/merge_requests/20/notes" | jq -r '.[-1].id')
-BODY=$(cat body.txt | sed -z "s/\n/\n\n/g")
+#BODY=$(cat body.txt | sed -z "s/\n/\n\n/g")
+BODY=$(cat body.txt)
 
 echo $BODY
 echo $ID
