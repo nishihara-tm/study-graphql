@@ -13,17 +13,17 @@ before_script:
 
 build:
   script:
+    - git fetch origin feature/test_gitlab #ここは${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}に置き換える
+    - git checkout feature/test_gitlab
     - docker-compose up -d --build db
     - docker-compose up -d api
     - docker-compose exec -T api bundle install
     - docker-compose exec -T api rails db:create
-    - git fetch origin feature/test_gitlab #ここは${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}に置き換える
-    - git checkout feature/test_gitlab
     - docker-compose exec -T api rails ridgepole:apply
     - git fetch origin feature/test_gitlab_2 #ここは${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}に置き換える
     - git stash
     - git checkout feature/test_gitlab_2
-    - docker-compose exec -T api ridgepole --config config/database.yml --file db/Schemafile --apply --dry-run #ここは環境に合わせて変更する
+    - docker-compose exec -T api bundle install
     - result=$(docker-compose exec -T api ridgepole --config config/database.yml --file db/Schemafile --apply --dry-run | sed -e "s/\`//g" | sed -e "s/\#//g") #ここは環境に合わせて変更する
     - echo "\`\`\`" >> body.txt
     - echo "$result" >> body.txt
